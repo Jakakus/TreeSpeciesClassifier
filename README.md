@@ -65,34 +65,23 @@ Hrast classification benefits from:
 
 ### Challenging Classes
 
-#### 1. Jelka vs Similar Species
-![Conifer Comparison](docs/images/analysis/conifers_comparison.png)
-*Visual comparison showing similarity between Jelka, Smreka, and Bor*
+#### 1. Similar Needle-Leaved Trees (Jelka, Smreka, Bor)
+![Needle-Leaved Trees Comparison](docs/images/analysis/needle_trees_comparison.png)
+*Comparison showing key identifying features: (A) Close-up details of needles and cones, (B) Overall tree form and shape, (C) Growth patterns and branching structure. Note how similar species can be distinguished by needle arrangement, crown shape, and growth habits.*
 
-The model struggles with conifer classification due to:
-- Similar needle structure between species
-- Comparable branch patterns
-- Seasonal consistency (evergreen nature)
+The model faces challenges in distinguishing between needle-leaved trees due to:
+- Similar needle colors and textures in images
+- Overlapping growth patterns and shapes
+- Variable appearance based on tree age and growing conditions
 
-Code snippet showing the comparison visualization:
-```python
-def create_species_comparison(dataset_dir, species_groups, output_dir):
-    """Create comparison visualizations for similar species."""
-    species_groups = {
-        'conifers': ['Jelka', 'Smreka', 'Bor'],
-        'deciduous': ['Gaber', 'Bukev', 'Javor']
-    }
-    # Generate comparison visualizations...
-```
+#### 2. Similar Broad-Leaved Trees (Gaber, Bukev, Javor)
+![Broad-Leaved Trees Comparison](docs/images/analysis/broad_trees_comparison.png)
+*Comparison highlighting distinctive features: (A) Leaf and seed characteristics, (B) Overall tree form and structure, (C) Growth patterns and branching habits. Each species shows unique combinations of these features that aid in identification.*
 
-#### 2. Gaber vs Similar Species
-![Deciduous Comparison](docs/images/analysis/deciduous_comparison.png)
-*Visual comparison showing similarity between Gaber, Bukev, and Javor*
-
-Challenges in deciduous tree classification:
-- Similar leaf shapes and arrangements
-- Comparable bark textures
-- Seasonal variations affecting appearance
+Challenges in broad-leaved tree classification include:
+- Seasonal variations in leaf appearance
+- Similar overall tree shapes at different growth stages
+- Varying lighting conditions affecting feature visibility
 
 ## Key Features
 - EfficientNetB0-based classification model

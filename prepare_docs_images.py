@@ -83,24 +83,118 @@ def create_species_grid(dataset_dir, output_path, samples_per_species=1):
 
 def create_species_comparison(dataset_dir, species_groups, output_dir):
     """Create comparison visualizations for similar species."""
+    # Species name mapping for better labels
+    species_names = {
+        'bor': 'Bor (Scots Pine)',
+        'bukev': 'Bukev (Common Beech)',
+        'gaber': 'Gaber (Common Hornbeam)',
+        'hrast': 'Hrast (Sessile Oak)',
+        'javor': 'Javor (Sycamore Maple)',
+        'jelka': 'Jelka (Silver Fir)',
+        'kostanj': 'Kostanj (Sweet Chestnut)',
+        'lipa': 'Lipa (Large-leaved Lime)',
+        'macesen': 'Macesen (European Larch)',
+        'smreka': 'Smreka (Norway Spruce)'
+    }
+
+    feature_descriptions = {
+        'needle_trees': {
+            'title': 'Comparison of Needle-Leaved Trees',
+            'features': ['Close-up Features', 'Full Tree View', 'Growth Pattern'],
+            'descriptions': {
+                'jelka': [
+                    'Flat needles arranged in rows',
+                    'Tall, straight trunk',
+                    'Regular, symmetrical branching'
+                ],
+                'smreka': [
+                    'Dense needle clusters',
+                    'Conical shape with regular branches',
+                    'Uniform growth pattern'
+                ],
+                'bor': [
+                    'Long needles with cones',
+                    'Mature tree with spreading crown',
+                    'Young tree in cultivation'
+                ]
+            }
+        },
+        'broad_trees': {
+            'title': 'Comparison of Broad-Leaved Trees',
+            'features': ['Leaf Detail', 'Tree Form', 'Growth Characteristics'],
+            'descriptions': {
+                'gaber': [
+                    'Distinctive hanging seed clusters',
+                    'Dense leaf arrangement',
+                    'Branch and leaf pattern'
+                ],
+                'bukev': [
+                    'Typical leaf arrangement',
+                    'Mature tree form',
+                    'Characteristic branching'
+                ],
+                'javor': [
+                    'Full tree silhouette',
+                    'Distinctive maple leaves',
+                    'Mature tree shape'
+                ]
+            }
+        }
+    }
+
     for group_name, species_list in species_groups.items():
-        fig, axes = plt.subplots(len(species_list), 3, figsize=(15, 5*len(species_list)))
-        fig.suptitle(f'Comparison of Similar Species: {group_name}', fontsize=16)
+        group_info = feature_descriptions['needle_trees' if group_name == 'needle_trees' else 'broad_trees']
+        
+        # Create figure with proper spacing
+        fig = plt.figure(figsize=(15, 7*len(species_list)))
+        
+        # Add title with more space at top
+        fig.suptitle(group_info['title'], fontsize=16, y=0.98)
+        
+        # Create grid with proper spacing for headers and descriptions
+        height_ratios = []
+        for _ in range(len(species_list)):
+            height_ratios.extend([1, 0.3])  # Image row and description row for each species
+            
+        gs = fig.add_gridspec(len(species_list)*2, 3, height_ratios=height_ratios)
+        
+        # Add column headers at the top with more space
+        for j, feature in enumerate(group_info['features']):
+            fig.text(0.25 + j*0.25, 0.95, feature, 
+                    ha='center', va='bottom', 
+                    fontsize=14, weight='bold')
         
         for i, species in enumerate(species_list):
+            # Add species name on the left with proper alignment
+            fig.text(0.02, 0.85 - (i*0.30), species_names.get(species, species),
+                    fontsize=12, weight='bold',
+                    ha='left', va='center')
+            
             species_dir = os.path.join(dataset_dir, 'train', species)
             image_files = sorted(os.listdir(species_dir))[:3]
             
             for j, img_file in enumerate(image_files):
+                # Create subplot for image
+                ax_img = fig.add_subplot(gs[i*2, j])
                 img_path = os.path.join(species_dir, img_file)
                 img = Image.open(img_path)
-                axes[i, j].imshow(img)
-                axes[i, j].axis('off')
-                if j == 0:
-                    axes[i, j].set_ylabel(species, fontsize=12)
+                ax_img.imshow(img)
+                ax_img.axis('off')
+                
+                # Add description below the image
+                ax_desc = fig.add_subplot(gs[i*2+1, j])
+                ax_desc.text(0.5, 0.7, group_info['descriptions'][species][j],
+                           ha='center', va='center',
+                           fontsize=10, wrap=True)
+                ax_desc.axis('off')
         
-        plt.tight_layout()
-        plt.savefig(os.path.join(output_dir, f'{group_name}_comparison.png'),
+        # Adjust layout with more space between rows
+        plt.subplots_adjust(top=0.92, bottom=0.02, 
+                          left=0.15, right=0.95,
+                          hspace=0.2, wspace=0.1)
+        
+        output_filename = 'needle_trees_comparison.png' if group_name == 'needle_trees' else 'broad_trees_comparison.png'
+        plt.savefig(os.path.join(output_dir, output_filename),
                    dpi=300, bbox_inches='tight')
         plt.close()
 
@@ -313,10 +407,10 @@ def main():
             'docs/images/analysis'
         )
     
-    # Create species comparisons
+    # Create species comparisons with better names and organization
     species_groups = {
-        'conifers': ['jelka', 'smreka', 'bor'],
-        'deciduous': ['gaber', 'bukev', 'javor']
+        'needle_trees': ['jelka', 'smreka', 'bor'],
+        'broad_trees': ['gaber', 'bukev', 'javor']
     }
     create_species_comparison(
         dataset_dir,
