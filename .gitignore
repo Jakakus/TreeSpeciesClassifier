@@ -25,13 +25,17 @@ trees_dataset.zip
 *.h5
 *.ckpt
 *.pth
+*.keras
 
-# Dataset directories (except samples for docs)
+# Dataset directories
+trees_dataset/all_images/*
 trees_dataset/train/*
 trees_dataset/validation/*
 trees_dataset/test/*
-!trees_dataset/train/*/sample_*.jpg
-!trees_dataset/train/*/example_*.jpg
+
+# Sample images for documentation
+!trees_dataset/all_images/*/sample_*.jpg
+!trees_dataset/all_images/*/example_*.jpg
 
 # Logs and databases
 *.log
