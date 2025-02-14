@@ -6,27 +6,27 @@ This project implements a deep learning-based classification system for identify
 ## Visual Examples
 
 ### Sample Images per Species
-![Tree Species Examples](images/samples/tree_species_grid.png)
+![Tree Species Examples](docs/images/samples/tree_species_grid.png)
 *Sample images showing characteristic features of each tree species*
 
 ### Best Performing Classes
 
 #### 1. Kostanj (Sweet Chestnut)
-![Kostanj Examples](images/analysis/kostanj_examples.png)
+![Kostanj Examples](docs/images/analysis/kostanj_examples.png)
 *Distinctive features: (A) Spiral bark pattern (B) Serrated leaves (C) Fruit clusters*
 
 #### 2. Hrast (Sessile Oak)
-![Hrast Examples](images/analysis/hrast_examples.png)
+![Hrast Examples](docs/images/analysis/hrast_examples.png)
 *Distinctive features: (A) Rough bark texture (B) Lobed leaves (C) Characteristic branching*
 
 ### Challenging Classes
 
 #### 1. Jelka vs Similar Species
-![Conifer Comparison](images/analysis/conifer_comparison.png)
+![Conifer Comparison](docs/images/analysis/conifer_comparison.png)
 *Visual comparison showing similarity between Jelka, Smreka, and Bor*
 
 #### 2. Gaber vs Similar Species
-![Deciduous Comparison](images/analysis/deciduous_comparison.png)
+![Deciduous Comparison](docs/images/analysis/deciduous_comparison.png)
 *Visual comparison showing similarity between Gaber, Bukev, and Javor*
 
 ## Key Features
@@ -47,11 +47,11 @@ This project implements a deep learning-based classification system for identify
 ### Training Results
 
 #### Learning Curves
-![Training History](images/results/combined_training_history.png)
+![Training History](docs/images/results/training_history.png)
 *Training and validation metrics over both phases*
 
 #### Confusion Matrix
-![Confusion Matrix](images/results/confusion_matrix.png)
+![Confusion Matrix](docs/images/results/confusion_matrix.png)
 *Normalized confusion matrix showing inter-class confusion patterns*
 
 ### Class-specific Performance
@@ -180,8 +180,8 @@ This project implements a deep learning-based classification system for identify
 ## Additional Resources
 
 ### Detailed Reports
-- [Classification Report](reports/classification_report.md): Comprehensive metrics for each species
-- [Training Analysis](reports/training_analysis.md): Detailed training process insights
+- [Classification Report](docs/reports/classification_report.md): Comprehensive metrics for each species
+- [Training Analysis](docs/reports/training_analysis.md): Detailed training process insights
 
 ### Training Logs
 - [Phase 1 Training Log](training_results/phase1_training_log.csv): Feature extraction phase metrics
