@@ -1,0 +1,27 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Python files
+*.py text diff=python
+
+# Documentation
+*.md text diff=markdown
+*.txt text
+
+# Data files
+*.csv text
+*.json text
+
+# Image files
+*.jpg binary
+*.jpeg binary
+*.png binary
+
+# Model files
+*.h5 binary
+*.keras binary
+*.pth binary
+
+# Exclude from language statistics
+*.ipynb linguist-documentation
+training_results/* linguist-generated=true 
