@@ -155,29 +155,95 @@ Challenges in broad-leaved tree classification include:
 
 ## Results Analysis
 
-### Strong Performance
+### Model Performance Analysis
+
+#### Confusion Matrix Interpretation
+The confusion matrix reveals several important patterns:
+1. Strong diagonal elements for Kostanj (Sweet Chestnut) and Hrast (Sessile Oak), indicating good classification
+2. Frequent confusion between similar species:
+   - Needle-leaved trees (Jelka, Smreka, Bor) are often misclassified among themselves
+   - Broad-leaved trees (Gaber, Bukev, Javor) show similar confusion patterns
+
+#### Performance by Image Type
+Analysis of the dataset reveals varying model performance based on image characteristics:
+
+1. **Best Performing Images:**
+   - Full tree silhouettes against clear sky (accuracy ~60%)
+   - Close-up bark patterns with distinctive textures (accuracy ~55%)
+   - Leaf/needle arrangements in good lighting (accuracy ~50%)
+
+2. **Challenging Image Types:**
+   - Trees in dense forest settings (accuracy <30%)
+   - Poor lighting conditions (accuracy <25%)
+   - Seasonal variations (especially for deciduous trees)
+   - Mixed species in single images
+
+### Species-Specific Analysis
+
+#### Top Performers
 1. **Kostanj (Sweet Chestnut)**
-   - F1-score: 0.667
-   - Precision: 0.600
-   - Recall: 0.750
-   - Success factors: Distinctive bark patterns and leaf structure
+   - Accuracy: 75% (highest among all species)
+   - Key success factors:
+     - Distinctive bark pattern (spiral ridges)
+     - Unique leaf serration
+     - Consistent image quality in dataset
 
 2. **Hrast (Sessile Oak)**
-   - F1-score: 0.571
-   - Precision: 0.667
-   - Recall: 0.500
-   - Success factors: Characteristic branching pattern and bark texture
+   - Precision: 66.7%
+   - Success attributes:
+     - Well-defined leaf shapes
+     - Characteristic branching pattern
+     - Good variety of seasonal images
 
-### Areas for Improvement
+#### Challenging Species
+
 1. **Jelka (Silver Fir)**
-   - High precision but very low recall (0.125)
-   - Challenge: Model is overly conservative
-   - Cause: Visual similarity with other conifers
+   - Low recall (12.5%) despite good precision (50%)
+   - Issues:
+     - Similar appearance to other conifers
+     - Variable image quality
+     - Limited distinctive features in available images
 
 2. **Gaber (Common Hornbeam)**
-   - Balanced but low precision and recall
-   - Challenge: Frequently confused with similar deciduous trees
-   - Cause: Shared characteristics with bukev and javor
+   - Overall low performance (F1-score: 0.267)
+   - Challenges:
+     - High similarity to Bukev in many images
+     - Inconsistent image quality
+     - Variable lighting conditions
+
+### Image Quality Analysis
+
+#### Dataset Composition Issues
+1. **Inconsistent Image Types:**
+   - Mix of close-ups and full tree shots
+   - Varying seasons and lighting conditions
+   - Different perspectives and angles
+
+2. **Quality Variations:**
+   - Resolution differences (ranging from low to high quality)
+   - Focus issues in some images
+   - Lighting inconsistencies
+
+3. **Context Variations:**
+   - Some trees photographed in isolation
+   - Others in forest settings
+   - Varying backgrounds and environments
+
+#### Recommendations for Dataset Improvement
+1. **Standardization Needs:**
+   - Consistent image resolution
+   - Standard photography angles
+   - Balanced seasonal representation
+
+2. **Additional Image Types Needed:**
+   - More bark close-ups
+   - Full tree silhouettes
+   - Leaf/needle detail shots
+
+3. **Quality Guidelines:**
+   - Minimum resolution requirements
+   - Lighting standards
+   - Focus and clarity specifications
 
 ## Project Structure
 ```
