@@ -50,16 +50,30 @@ training_results/*
 !training_results/phase2_training_log.csv
 
 # Documentation
+# First ignore everything in docs
 docs/*
+
+# Then explicitly allow specific directories and their contents
 !docs/images/
 !docs/images/samples/
 !docs/images/analysis/
 !docs/images/results/
 !docs/reports/
+
+# Then explicitly allow specific file types in those directories
 !docs/images/samples/*.png
 !docs/images/analysis/*.png
 !docs/images/results/*.png
 !docs/reports/*.md
+
+# Explicitly track these specific files
+!docs/images/samples/tree_species_grid.png
+!docs/images/analysis/kostanj_examples.png
+!docs/images/analysis/hrast_examples.png
+!docs/images/analysis/conifers_comparison.png
+!docs/images/analysis/deciduous_comparison.png
+!docs/images/results/training_history.png
+!docs/images/results/confusion_matrix.png
 
 # OS generated files
 .DS_Store
