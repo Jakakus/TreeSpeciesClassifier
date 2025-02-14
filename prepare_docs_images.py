@@ -31,26 +31,51 @@ def create_directory_structure():
     for dir_path in dirs:
         os.makedirs(dir_path, exist_ok=True)
 
-def create_species_grid(dataset_dir, output_path, samples_per_species=3):
+def create_species_grid(dataset_dir, output_path, samples_per_species=1):
     """Create a grid of sample images for each tree species."""
     species = sorted(os.listdir(os.path.join(dataset_dir, 'train')))
     n_species = len(species)
     
-    fig, axes = plt.subplots(n_species, samples_per_species, 
-                            figsize=(15, 5*n_species))
+    # Calculate grid dimensions
+    n_cols = 5
+    n_rows = (n_species + n_cols - 1) // n_cols
+    
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 3*n_rows))
     fig.suptitle('Sample Images for Each Tree Species', fontsize=16)
     
+    # Flatten axes for easier indexing
+    axes_flat = axes.flatten()
+    
+    # Species name mapping
+    species_names = {
+        'bor': 'Bor (Scots Pine)',
+        'bukev': 'Bukev (Common Beech)',
+        'gaber': 'Gaber (Common Hornbeam)',
+        'hrast': 'Hrast (Sessile Oak)',
+        'javor': 'Javor (Sycamore Maple)',
+        'jelka': 'Jelka (Silver Fir)',
+        'kostanj': 'Kostanj (Sweet Chestnut)',
+        'lipa': 'Lipa (Large-leaved Lime)',
+        'macesen': 'Macesen (European Larch)',
+        'smreka': 'Smreka (Norway Spruce)'
+    }
+    
     for i, species_name in enumerate(species):
-        species_dir = os.path.join(dataset_dir, 'train', species_name)
-        image_files = sorted(os.listdir(species_dir))[:samples_per_species]
-        
-        for j, img_file in enumerate(image_files):
-            img_path = os.path.join(species_dir, img_file)
-            img = Image.open(img_path)
-            axes[i, j].imshow(img)
-            axes[i, j].axis('off')
-            if j == 0:
-                axes[i, j].set_ylabel(species_name, fontsize=12)
+        if i < len(axes_flat):
+            species_dir = os.path.join(dataset_dir, 'train', species_name)
+            image_files = sorted(os.listdir(species_dir))[:samples_per_species]
+            
+            if image_files:
+                img_path = os.path.join(species_dir, image_files[0])
+                img = Image.open(img_path)
+                axes_flat[i].imshow(img)
+                axes_flat[i].set_title(species_names.get(species_name, species_name), 
+                                     fontsize=10, pad=5)
+            axes_flat[i].axis('off')
+    
+    # Hide empty subplots
+    for j in range(i + 1, len(axes_flat)):
+        axes_flat[j].axis('off')
     
     plt.tight_layout()
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
@@ -239,6 +264,33 @@ def copy_training_results(results_dir, output_dir):
     print("\nDocumentation preparation completed!")
     print("Note: Some warnings may have occurred. Check the messages above.")
 
+def create_species_examples(dataset_dir, species_name, output_dir, n_examples=3):
+    """Create a visualization of example images for a specific species."""
+    species_dir = os.path.join(dataset_dir, 'train', species_name)
+    if not os.path.exists(species_dir):
+        print(f"Warning: Directory not found for species {species_name}")
+        return
+    
+    image_files = sorted(os.listdir(species_dir))[:n_examples]
+    if len(image_files) < n_examples:
+        print(f"Warning: Not enough images found for {species_name}")
+        return
+    
+    fig, axes = plt.subplots(1, n_examples, figsize=(15, 5))
+    fig.suptitle(f'Example Images: {species_name}', fontsize=16)
+    
+    for i, img_file in enumerate(image_files):
+        img_path = os.path.join(species_dir, img_file)
+        img = Image.open(img_path)
+        axes[i].imshow(img)
+        axes[i].axis('off')
+        axes[i].set_title(f'Example {chr(65+i)}', fontsize=12)
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, f'{species_name.lower()}_examples.png'),
+               dpi=300, bbox_inches='tight')
+    plt.close()
+
 def main():
     # Create directory structure
     create_directory_structure()
@@ -253,10 +305,18 @@ def main():
         'docs/images/samples/tree_species_grid.png'
     )
     
+    # Create individual species examples
+    for species in ['Kostanj', 'Hrast']:
+        create_species_examples(
+            dataset_dir,
+            species,
+            'docs/images/analysis'
+        )
+    
     # Create species comparisons
     species_groups = {
-        'conifers': ['jelka', 'smreka', 'bor'],
-        'deciduous': ['gaber', 'bukev', 'javor']
+        'conifers': ['Jelka', 'Smreka', 'Bor'],
+        'deciduous': ['Gaber', 'Bukev', 'Javor']
     }
     create_species_comparison(
         dataset_dir,
@@ -264,11 +324,11 @@ def main():
         'docs/images/analysis'
     )
     
-    # Copy and process training results
+    # Copy and organize training results
     copy_training_results(
         results_dir,
         'docs/images/results'
     )
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main() 
