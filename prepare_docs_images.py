@@ -306,7 +306,7 @@ def main():
     )
     
     # Create individual species examples
-    for species in ['Kostanj', 'Hrast']:
+    for species in ['kostanj', 'hrast']:
         create_species_examples(
             dataset_dir,
             species,
@@ -315,8 +315,8 @@ def main():
     
     # Create species comparisons
     species_groups = {
-        'conifers': ['Jelka', 'Smreka', 'Bor'],
-        'deciduous': ['Gaber', 'Bukev', 'Javor']
+        'conifers': ['jelka', 'smreka', 'bor'],
+        'deciduous': ['gaber', 'bukev', 'javor']
     }
     create_species_comparison(
         dataset_dir,
