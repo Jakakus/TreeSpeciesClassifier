@@ -47,41 +47,92 @@ def download_and_process_images(species_name, search_terms, target_count=50):
 
 #### 1. Kostanj (Sweet Chestnut)
 ![Kostanj Examples](docs/images/analysis/kostanj_examples.png)
-*Distinctive features: (A) Spiral bark pattern (B) Serrated leaves (C) Fruit clusters*
+*Example images showing key identifying features. Note: While these examples show clear features, the dataset's limited size means not all samples have this level of clarity.*
 
-The model performs exceptionally well on Kostanj due to its unique characteristics:
-- Distinctive spiral bark pattern that differs from other species
-- Compound leaves with serrated edges
-- Characteristic fruit clusters visible in many images
+The model performs well on Kostanj despite dataset limitations:
+- Distinctive features are often visible even in lower quality images
+- Bark pattern remains recognizable across different lighting conditions
+- Leaf characteristics are consistent across seasons
+- Good performance even with limited training data
 
 #### 2. Hrast (Sessile Oak)
 ![Hrast Examples](docs/images/analysis/hrast_examples.png)
-*Distinctive features: (A) Rough bark texture (B) Lobed leaves (C) Characteristic branching*
+*Representative images highlighting characteristic features. Dataset quality varies, but distinctive traits often remain identifiable.*
 
-Hrast classification benefits from:
-- Deep fissures in bark texture
-- Distinctive lobed leaf shape
-- Characteristic branching pattern visible in crown structure
+Hrast classification maintains good performance due to:
+- Robust features that persist across different image qualities
+- Distinctive silhouette visible even in cluttered backgrounds
+- Strong performance despite seasonal variations
+- Recognizable characteristics at various growth stages
 
 ### Challenging Classes
 
 #### 1. Similar Needle-Leaved Trees (Jelka, Smreka, Bor)
 ![Needle-Leaved Trees Comparison](docs/images/analysis/needle_trees_comparison.png)
-*Comparison showing key identifying features: (A) Close-up details of needles and cones, (B) Overall tree form and shape, (C) Growth patterns and branching structure. Note how similar species can be distinguished by needle arrangement, crown shape, and growth habits.*
+*Representative examples of needle-leaved trees with dataset quality notes. Each image shows characteristic features, but also illustrates common challenges in the dataset: varying image quality, inconsistent lighting, and mixed forest backgrounds that complicate identification.*
 
-The model faces challenges in distinguishing between needle-leaved trees due to:
-- Similar needle colors and textures in images
-- Overlapping growth patterns and shapes
-- Variable appearance based on tree age and growing conditions
+Dataset Limitations for Needle-Leaved Trees:
+- Small sample size (50 images per species) limits representation of growth stages
+- Many images lack clear detail of needle arrangement and cone structure
+- Forest backgrounds often obscure distinctive branching patterns
+- Seasonal and lighting variations affect color and texture perception
+- Limited high-quality images showing full tree perspective
 
 #### 2. Similar Broad-Leaved Trees (Gaber, Bukev, Javor)
 ![Broad-Leaved Trees Comparison](docs/images/analysis/broad_trees_comparison.png)
-*Comparison highlighting distinctive features: (A) Leaf and seed characteristics, (B) Overall tree form and structure, (C) Growth patterns and branching habits. Each species shows unique combinations of these features that aid in identification.*
+*Representative examples of broad-leaved trees with dataset quality notes. While each species has unique characteristics, the dataset's limitations (inconsistent image quality, seasonal variations, and limited viewing angles) make reliable classification challenging.*
 
-Challenges in broad-leaved tree classification include:
-- Seasonal variations in leaf appearance
-- Similar overall tree shapes at different growth stages
-- Varying lighting conditions affecting feature visibility
+Dataset Limitations for Broad-Leaved Trees:
+- Seasonal changes dramatically affect appearance (leaf presence, color)
+- Variable image quality and resolution across samples
+- Limited variety in viewing angles and distances
+- Background clutter often obscures key features
+- Insufficient examples of distinctive characteristics (bark texture, leaf patterns)
+
+### Dataset Quality Considerations
+
+#### Current Limitations
+1. **Sample Size Constraints:**
+   - Only 50 images per species (500 total)
+   - Limited representation of different growth stages
+   - Insufficient seasonal variation coverage
+
+2. **Image Quality Issues:**
+   - Inconsistent resolution and focus
+   - Variable lighting conditions
+   - Mixed quality of feature detail (leaves, bark, overall form)
+
+3. **Collection Challenges:**
+   - Difficulty in obtaining clear, isolated tree specimens
+   - Limited control over photography conditions
+   - Seasonal availability constraints
+
+#### Impact on Model Performance
+1. **Feature Recognition:**
+   - Model struggles with subtle differences between similar species
+   - Performance varies significantly with image quality
+   - Seasonal variations affect recognition accuracy
+
+2. **Classification Confidence:**
+   - Higher uncertainty in mixed forest settings
+   - Reduced accuracy with partial or obscured views
+   - Variable performance across different lighting conditions
+
+#### Improvement Strategies
+1. **Data Collection:**
+   - Systematic photography of each species across seasons
+   - Standardized imaging protocols (distance, angle, lighting)
+   - Focus on capturing distinctive features
+
+2. **Quality Standards:**
+   - Minimum resolution requirements (e.g., 1024x1024 pixels)
+   - Clear feature visibility guidelines
+   - Consistent lighting and background conditions
+
+3. **Dataset Expansion:**
+   - Target 1000+ images per species
+   - Include multiple growth stages
+   - Capture various environmental conditions
 
 ## Key Features
 - EfficientNetB0-based classification model
