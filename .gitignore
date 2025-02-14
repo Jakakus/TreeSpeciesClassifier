@@ -52,7 +52,14 @@ training_results/*
 # Documentation
 docs/*
 !docs/images/
+!docs/images/samples/
+!docs/images/analysis/
+!docs/images/results/
 !docs/reports/
+!docs/images/samples/*.png
+!docs/images/analysis/*.png
+!docs/images/results/*.png
+!docs/reports/*.md
 
 # OS generated files
 .DS_Store
